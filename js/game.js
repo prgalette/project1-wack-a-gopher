@@ -11,16 +11,16 @@ const gopherHoles = [
 
 const gopherClasses = [
     {
-    class: 'gopher1',
-    speed: 1000
+        class: 'gopher1',
+        speed: 1000
     },
     {
-    class: 'gopher2',
-    speed: 2000
+        class: 'gopher2',
+        speed: 2000
     },
     {
-    class: 'gopher3',
-    speed: 3000
+        class: 'gopher3',
+        speed: 3000
     }
 ]
 
@@ -37,11 +37,11 @@ window.addEventListener('load', () => {
     let currentScore = document.getElementById('current')
 
     console.log("loaded")
-    
+
     let holeDivs = gopherHoles.map((hole) => {
         return document.getElementById(hole)
     })
-    
+
     console.log(holeDivs)
 
     let gopher = document.createElement('img')
@@ -51,29 +51,29 @@ window.addEventListener('load', () => {
     gopher.style.zIndex = '3'
     gopher.id = 'gopher'
     gopher.addEventListener('click', () => {
-        if(gopher.className === gopherClasses[2].class) {
+        if (gopher.className === gopherClasses[2].class) {
             score += 10;
-        } 
+        }
         else if (gopher.className === gopherClasses[1].class) {
             score += 20;
         }
         else if (gopher.className === gopherClasses[0].class) {
             score += 30;
         }
-        
+
         currentScore.innerHTML = score
         console.log("CAUGHT HIM!!!!")
     })
 
-   
-    function getMinutes(minutes){
+
+    function getMinutes(minutes) {
         return Math.floor(minutes / 60)
     }
 
-    function getSeconds(seconds){
+    function getSeconds(seconds) {
         return Math.floor(seconds % 60)
     }
-    
+
     function countdown(time) {
         let counter = document.getElementById("timer");
 
@@ -83,7 +83,6 @@ window.addEventListener('load', () => {
         counter.innerHTML = `${minutes > 10 ? minutes : "0" + minutes}:${seconds > 10 ? seconds : "0" + seconds}`
 
     }
-
 
 
     let gopherSpeed
@@ -105,29 +104,42 @@ window.addEventListener('load', () => {
 
             let randomGopherIndex = Math.floor(Math.random() * holeDivs.length)
 
-            // let randomClassIndex = Math.floor(Math.random() * gopherClasses.length)
-
-            // gopher.className = gopherClasses[randomClassIndex].class
-
-            // gopherSpeed = gopherClasses[randomClassIndex].speed
-
             holeDivs[randomGopherIndex].appendChild(gopher)
             defineGopher()
 
             console.log("Speed ==>", gopherSpeed)
 
+            if (time === 0) {
+
+                clearInterval(gopherInterval)
+                console.log("Time is up!")
+                //document.getElementById("gopher").remove()
+                document.location.reload()
+
+            }
+
         }, gopherSpeed)
+
     }
 
     let beginButton = document.getElementById('begin')
     beginButton.addEventListener('click', () => {
         defineGopher()
-
         countdownId = setInterval(() => {
             time--
+            if (time === 0) {
+                clearInterval(countdownId)
+
+                endGame()
+
+            }
             countdown(time)
         }, 1000)
+
     })
+
+
+
 
     let iron = document.getElementById("iron")
 
@@ -138,5 +150,26 @@ window.addEventListener('load', () => {
 
     })
 
+    function endGame() {
+
+        let lastHighScore = parseFloat(localStorage.getItem("score"))
+        if (!lastHighScore) {
+            alert("this is your new high score!" + score)
+            localStorage.setItem("score", score)
+        } else if (lastHighScore > score) {
+            alert("You failed to beat your highscore of " + lastHighScore + "!")
+        } else if(lastHighScore < score){
+            localStorage.setItem("score",  score)
+            alert("You beat your highscore of " + lastHighScore + " with a score of " + score + "!")
+        }
+
+    }
+
+
+
 
 })
+
+
+
+

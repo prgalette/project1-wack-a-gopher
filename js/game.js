@@ -160,7 +160,7 @@ window.addEventListener('load', () => {
 
         let lastHighScore = parseFloat(localStorage.getItem("score"))
         if (!lastHighScore) {
-            alert("this is your new high score!" + score)
+            alert("this is your new high score! " + score)
             localStorage.setItem("score", score)
         } else if (lastHighScore > score) {
             alert("You failed to beat your high score of " + lastHighScore + "!")

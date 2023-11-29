@@ -24,6 +24,8 @@ const gopherClasses = [
     }
 ]
 
+let hitSound = new Audio()
+hitSound.src = './images/punch-6.mp3'
 
 
 let gopherInterval
@@ -53,12 +55,16 @@ window.addEventListener('load', () => {
     gopher.addEventListener('click', () => {
         if (gopher.className === gopherClasses[2].class) {
             score += 10;
+            hitSound.play()
         }
         else if (gopher.className === gopherClasses[1].class) {
             score += 20;
+            hitSound.play()
         }
         else if (gopher.className === gopherClasses[0].class) {
             score += 30;
+            hitSound.play()
+
         }
 
         currentScore.innerHTML = score
@@ -157,13 +163,15 @@ window.addEventListener('load', () => {
             alert("this is your new high score!" + score)
             localStorage.setItem("score", score)
         } else if (lastHighScore > score) {
-            alert("You failed to beat your highscore of " + lastHighScore + "!")
+            alert("You failed to beat your high score of " + lastHighScore + "!")
         } else if(lastHighScore < score){
             localStorage.setItem("score",  score)
-            alert("You beat your highscore of " + lastHighScore + " with a score of " + score + "!")
+            alert("You beat your high score of " + lastHighScore + " with a score of " + score + "!")
         }
 
     }
+
+
 
 
 

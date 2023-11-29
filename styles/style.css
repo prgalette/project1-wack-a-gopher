@@ -31,8 +31,8 @@ body {
     height: 275px;
     width: 149px;
     z-index: 10;
-    margin-left: -5%;
-    margin-top: -5%;
+    margin-left: -5.5%;
+    margin-top: -5.5%;
     /* height: ; */
 }
 
@@ -50,6 +50,17 @@ body {
     position: fixed;
     margin: 20px;
     z-index: 2;
+    color: lightgray;
+}
+
+#begin {
+    background-color: green;
+    border-radius: 8px;
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    z-index: 2;
+    font-weight: bold;
     color: lightgray;
 }
 
